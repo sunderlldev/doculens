@@ -22,7 +22,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         TestDocument(titulo: "T01 D01 - Doc 55",
                      fecha: "28.12.2025",
                      peso: "970 KB",
-                     thumbnail: UIImage(systemName: "document.fill")),
+                     thumbnail: UIImage(systemName: "document.fill")
+        ),
+        
+        TestDocument(titulo: "T02 D03 - Testeo",
+                     fecha: "30.12.2025",
+                     peso: "1.2 MB",
+                     thumbnail: UIImage(systemName: "text.document")
+        ),
+        
+        TestDocument(titulo: "T03 D02 - Informe DocuLens",
+                     fecha: "05.12.2025",
+                     peso: "25.1 MB",
+                     thumbnail: UIImage(systemName: "document")
+        ),
     ]
     
     override func viewDidLoad() {
