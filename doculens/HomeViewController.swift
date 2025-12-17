@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -38,6 +39,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         ),
     ]
     
+    var documentos: [Document] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,7 +60,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         celda.lblTitulo.text = doc.titulo
         celda.lblFecha.text = doc.fecha
         celda.lblPeso.text = doc.peso
-        celda.thumbnail.image = doc.thumbnail ?? UIImage(systemName: "document.fill")
+        celda.thumbnail.image = doc.thumbnail ?? UIImage(systemName: "document.text.fill")
         
         celda.thumbnail.contentMode = .scaleAspectFit
         
