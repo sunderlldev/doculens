@@ -32,8 +32,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZGh-lS-S3p">
-                                                    <rect key="frame" x="5" y="7.3333333333333304" width="20" height="29.666666666666671"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZGh-lS-S3p">
+                                                    <rect key="frame" x="5" y="7.9999999999999964" width="20" height="28.333333333333332"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="3vC-pH-3L0"/>
@@ -78,6 +78,7 @@
                                             <outlet property="lblPeso" destination="ZpQ-AH-JtO" id="A3b-re-9om"/>
                                             <outlet property="lblTitulo" destination="8hy-Jw-A2l" id="t9d-2W-9q6"/>
                                             <outlet property="thumbnail" destination="ZGh-lS-S3p" id="Zqe-ro-pep"/>
+                                            <segue destination="gDL-re-kuI" kind="show" identifier="segueDocDetalle" trigger="accessoryAction" id="fD7-wQ-out"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -117,12 +118,108 @@
                     </view>
                     <navigationItem key="navigationItem" title="Inicio" id="cKB-1h-nzi"/>
                     <connections>
+                        <outlet property="searchBar" destination="dsV-qv-BkD" id="OyV-wi-bCw"/>
                         <outlet property="tablaRecientes" destination="BqC-by-hDl" id="uX2-qt-2ue"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="803.81679389312978" y="-521.12676056338034"/>
+        </scene>
+        <!--Documento Detalle View Controller-->
+        <scene sceneID="378-7i-pyy">
+            <objects>
+                <viewController id="gDL-re-kuI" customClass="DocumentoDetalleViewController" customModule="doculens" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vl5-u4-k0I">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vnb-fn-xBE">
+                                <rect key="frame" x="146.66666666666666" y="192" width="100" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Sxd-i5-zXB"/>
+                                    <constraint firstAttribute="height" constant="150" id="rqP-Op-qjK"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detalles del documento:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3O-Wq-WAj">
+                                <rect key="frame" x="20" y="367" width="353" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titulo: Titulo del documento" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPw-x8-QuQ">
+                                <rect key="frame" x="20" y="427" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha: Fecha de creacion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Oi-YU-n90">
+                                <rect key="frame" x="20" y="463" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peso del archivo: Peso" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYj-E7-M2q">
+                                <rect key="frame" x="20" y="499" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Datos extraidos:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ben-6Y-oNL">
+                                <rect key="frame" x="20" y="545" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oNj-dr-TIt">
+                                <rect key="frame" x="20" y="576" width="353" height="75"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="V3p-2a-GCC"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="G4r-4M-cXl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5Oi-YU-n90" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="0YN-7G-JqY"/>
+                            <constraint firstItem="IPw-x8-QuQ" firstAttribute="top" secondItem="j3O-Wq-WAj" secondAttribute="bottom" constant="30" id="0hc-hg-Qrp"/>
+                            <constraint firstItem="Ben-6Y-oNL" firstAttribute="top" secondItem="cYj-E7-M2q" secondAttribute="bottom" constant="25" id="1Bv-PW-LZ5"/>
+                            <constraint firstItem="5Oi-YU-n90" firstAttribute="top" secondItem="IPw-x8-QuQ" secondAttribute="bottom" constant="15" id="1gG-sR-PsF"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="Ben-6Y-oNL" secondAttribute="trailing" constant="20" id="6FN-90-96o"/>
+                            <constraint firstItem="oNj-dr-TIt" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="9E6-aN-jry"/>
+                            <constraint firstItem="oNj-dr-TIt" firstAttribute="top" secondItem="Ben-6Y-oNL" secondAttribute="bottom" constant="10" id="9MP-lo-SZ3"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="IPw-x8-QuQ" secondAttribute="trailing" constant="20" id="ARU-0D-T1T"/>
+                            <constraint firstItem="Ben-6Y-oNL" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="BNQ-jM-wAN"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="cYj-E7-M2q" secondAttribute="trailing" constant="20" id="EYS-NT-Yqp"/>
+                            <constraint firstItem="IPw-x8-QuQ" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="HAL-XM-KGH"/>
+                            <constraint firstItem="j3O-Wq-WAj" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="HMG-uf-dpe"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="j3O-Wq-WAj" secondAttribute="trailing" constant="20" id="Sul-5z-cUW"/>
+                            <constraint firstItem="j3O-Wq-WAj" firstAttribute="top" secondItem="Vnb-fn-xBE" secondAttribute="bottom" constant="25" id="Uno-7C-OqL"/>
+                            <constraint firstItem="cYj-E7-M2q" firstAttribute="top" secondItem="5Oi-YU-n90" secondAttribute="bottom" constant="15" id="YPa-gx-PtS"/>
+                            <constraint firstItem="Vnb-fn-xBE" firstAttribute="top" secondItem="G4r-4M-cXl" secondAttribute="top" constant="30" id="a0L-ek-OHv"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="5Oi-YU-n90" secondAttribute="trailing" constant="20" id="dmm-Oq-bmh"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="oNj-dr-TIt" secondAttribute="trailing" constant="20" id="lLM-Ki-Znp"/>
+                            <constraint firstItem="cYj-E7-M2q" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="t2a-oG-Z7f"/>
+                            <constraint firstItem="Vnb-fn-xBE" firstAttribute="centerX" secondItem="vl5-u4-k0I" secondAttribute="centerX" id="waz-Nv-gu7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="O34-7D-nZL"/>
+                    <connections>
+                        <outlet property="imageView" destination="Vnb-fn-xBE" id="QwU-po-JoS"/>
+                        <outlet property="lblFecha" destination="5Oi-YU-n90" id="d9i-aa-QwN"/>
+                        <outlet property="lblPeso" destination="cYj-E7-M2q" id="CZy-Ak-tYx"/>
+                        <outlet property="lblTitulo" destination="IPw-x8-QuQ" id="r39-o3-ndc"/>
+                        <outlet property="txtDatos" destination="oNj-dr-TIt" id="De2-HD-9hc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0N2-F2-Mx6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1547" y="-521"/>
         </scene>
         <!--Archivos-->
         <scene sceneID="MnC-wH-Dq2">
@@ -338,11 +435,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="document.fill" catalog="system" width="115" height="128"/>
         <image name="folder.fill" catalog="system" width="128" height="96"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="location" catalog="system" width="128" height="119"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
