@@ -21,7 +21,7 @@
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BqC-by-hDl">
-                                <rect key="frame" x="20" y="459" width="353" height="231"/>
+                                <rect key="frame" x="20" y="449" width="353" height="266"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
@@ -111,9 +111,9 @@
                             <constraint firstItem="HRB-XV-2u8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YEr-4J-yHA"/>
                             <constraint firstItem="MXb-Ne-OYX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bvn-xe-jp3"/>
                             <constraint firstItem="dsV-qv-BkD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="j7O-i4-EEd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="BqC-by-hDl" secondAttribute="bottom" constant="45" id="tss-tt-MTq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="BqC-by-hDl" secondAttribute="bottom" constant="20" id="tss-tt-MTq"/>
                             <constraint firstAttribute="bottom" secondItem="HRB-XV-2u8" secondAttribute="bottom" id="uFd-Zx-1g3"/>
-                            <constraint firstItem="BqC-by-hDl" firstAttribute="top" secondItem="MXb-Ne-OYX" secondAttribute="bottom" constant="20" id="x6F-Vt-RxU"/>
+                            <constraint firstItem="BqC-by-hDl" firstAttribute="top" secondItem="MXb-Ne-OYX" secondAttribute="bottom" constant="10" id="x6F-Vt-RxU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Inicio" id="cKB-1h-nzi"/>
