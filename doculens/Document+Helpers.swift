@@ -25,7 +25,7 @@ extension Document {
                 )
             }
         } catch {
-            print("Error al lerr el tamano del archivo: \(error)")
+            print("Error al leer el tamano del archivo: \(error)")
         }
 
         return "--"
