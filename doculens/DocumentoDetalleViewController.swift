@@ -51,7 +51,7 @@ class DocumentoDetalleViewController: UIViewController {
     private func loadExtractedFields() {
         guard
             let data = document?.extractedFields,
-            let json = try? JSONSerialization.jsonObject(with: data) as? [String: String]
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: String], !json.isEmpty
         else {
             txtDatos.text = "No hay datos extraidos"
             return
