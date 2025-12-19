@@ -34,7 +34,18 @@ class DocumentoDetalleViewController: UIViewController {
         lblTitulo.text = "Titulo: \(document.title ?? "")"
         lblFecha.text = "Fecha de subida: \(document.formattedDate)"
         lblPeso.text = "Peso del archivo: \(document.formattedSize)"
-        imageView.image = UIImage(systemName: "doc.text.fill")
+        
+        if document.mimeType?.starts(with: "image") == true,
+           let path = document.filePath,
+           FileManager.default.fileExists(atPath: path) {
+            imageView.image = UIImage(contentsOfFile: path)
+        } else if let thumb = document.thumbnail {
+            imageView.image = UIImage(data: thumb)
+        } else {
+            imageView.image = UIImage(systemName: "doc.text")
+        }
+        
+        imageView.contentMode = .scaleAspectFit
     }
     
     private func loadExtractedFields() {

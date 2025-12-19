@@ -7,6 +7,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="mimeType" optional="YES" attributeType="String"/>
         <attribute name="originalFilename" optional="YES" attributeType="String"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="folder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Folder" inverseName="documents" inverseEntity="Folder"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="documents" inverseEntity="Tag"/>

@@ -29,6 +29,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(recargarDocumentos),
+            name: .documentoCreado,
+            object: nil
+        )
+        
         tablaRecientes.delegate = self
         tablaRecientes.dataSource = self
         
@@ -37,8 +44,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             action: #selector(handleLongPress(_:))
         )
         tablaRecientes.addGestureRecognizer(longPress)
-        
-        testDocuments()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,39 +51,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         fetchDocumentosRecientes()
     }
     
-    // MARK: - Datos para testeo
-    private func testDocuments() {
-        let request: NSFetchRequest<Document> = Document.fetchRequest()
-
-        if let count = try? context.count(for: request), count > 0 {
-            return
-        }
-
-        let doc = Document(context: context)
-        doc.id = UUID()
-        doc.title = "Factura Claro - Enero"
-        doc.originalFilename = "factura_claro_enero.pdf"
-        doc.mimeType = "application/pdf"
-        doc.createdAt = Date()
-        doc.filePath = "/tmp/factura_claro_enero.pdf"
-
-        // Simulación de datos OCR
-        let extracted: [String: String] = [
-            "Empresa": "Claro Perú",
-            "Monto": "S/ 89.90",
-            "Fecha": "15/01/2025",
-            "Cliente": "Juan Pérez"
-        ]
-        doc.extractedFields = try? JSONSerialization.data(
-            withJSONObject: extracted,
-            options: []
-        )
-
-        do {
-            try context.save()
-        } catch {
-            print("Error creando documento de prueba:", error)
-        }
+    @objc private func recargarDocumentos() {
+        fetchDocumentosRecientes()
     }
     
     // MARK: - Documentos Recientes Fetch
@@ -232,16 +206,33 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let celda = tableView.dequeueReusableCell(
             withIdentifier: "RecentCell",
             for: indexPath
-        ) as! RecentCell
+        )
         
         let doc = isSearching ? documentosFiltrados[indexPath.row] : documentosRecientes[indexPath.row]
         
-        celda.lblTitulo.text = doc.title
-        celda.lblFecha.text = doc.formattedDate
-        celda.lblPeso.text = doc.formattedSize
-        celda.thumbnail.image = UIImage(systemName: "document.text.fill")
+        celda.textLabel?.text = doc.title
+        celda.detailTextLabel?.text = "\(doc.formattedDate) - \(doc.formattedSize)"
         
-    // celda.thumbnail.contentMode = .scaleAspectFit
+        celda.imageView?.image = UIImage(systemName: "doc.text")
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            var image: UIImage? = nil
+            
+            if let data = doc.thumbnail {
+                image = UIImage(data: data)
+            }
+            
+            DispatchQueue.main.async {
+                if let celdaVisible = tableView.cellForRow(at: indexPath) {
+                    celdaVisible.imageView?.image = image ?? UIImage(systemName: "doc.text")
+                    celdaVisible.setNeedsLayout()
+                }
+            }
+        }
+        
+        celda.imageView?.contentMode = .scaleToFill
+        celda.imageView?.clipsToBounds = true
+        celda.accessoryType = .disclosureIndicator
         
         return celda
     }
