@@ -55,7 +55,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         let fileName = UUID().uuidString + ".jpg"
         let destinoURL = documentsURL.appendingPathComponent(fileName)
 
-        guard let data = image.jpegData(compressionQuality: 0.85) else {
+        guard let data = image.jpegData(compressionQuality: 0.8) else {
             return
         }
 
@@ -144,13 +144,32 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                     from: thumbnailSourceImage
                 )
 
-                self.createDocument(
-                    title: finalTitle,
-                    filePath: path,
-                    mimeType: mimeType,
-                    originalFilename: originalFilename,
-                    thumbnail: thumbData
-                )
+                if let image = thumbnailSourceImage {
+                    OCRService.recognizeText(from: image) { lines in
+
+                        let extracted = OCRPostProcessor.extractFields(from: lines)
+                        
+                        DispatchQueue.main.async {
+                            self.createDocument(
+                                title: finalTitle,
+                                filePath: path,
+                                mimeType: mimeType,
+                                originalFilename: originalFilename,
+                                thumbnail: thumbData,
+                                extractedFields: extracted
+                            )
+                        }
+                    }
+                } else {
+                    self.createDocument(
+                        title: finalTitle,
+                        filePath: path,
+                        mimeType: mimeType,
+                        originalFilename: originalFilename,
+                        thumbnail: thumbData,
+                        extractedFields: nil
+                    )
+                }
             }
         )
 
@@ -162,9 +181,9 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         filePath: String,
         mimeType: String,
         originalFilename: String,
-        thumbnail: Data?
+        thumbnail: Data?,
+        extractedFields: [String: String]?
     ) {
-
         let context = (UIApplication.shared.delegate as! AppDelegate)
             .persistentContainer.viewContext
 
@@ -177,6 +196,13 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         doc.createdAt = Date()
         doc.thumbnail = thumbnail
 
+        if let extractedFields {
+            doc.extractedFields = try? JSONSerialization.data(
+                withJSONObject: extractedFields,
+                options: []
+            )
+        }
+        
         do {
             try context.save()
             NotificationCenter.default.post(name: .documentoCreado, object: nil)
