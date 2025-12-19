@@ -5,6 +5,7 @@
 //  Created by sunderll on 18/12/25.
 //
 
+import PDFKit
 import UIKit
 import UniformTypeIdentifiers
 
@@ -51,7 +52,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
             for: .documentDirectory,
             in: .userDomainMask
         ).first!
-        
+
         let fileName = UUID().uuidString + ".jpg"
         let destinoURL = documentsURL.appendingPathComponent(fileName)
 
@@ -67,7 +68,8 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                     path: destinoURL.path,
                     mimeType: "image/jpeg",
                     originalFilename: fileName,
-                    thumbnailSourceImage: image
+                    thumbnailSourceImage: image,
+                    extractedFields: nil
                 )
             }
         } catch {
@@ -99,12 +101,47 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         do {
             try FileManager.default.copyItem(at: sourceURL, to: destinoURL)
 
-            pedirTituloYCrearDoc(
-                path: destinoURL.path,
-                mimeType: "application/pdf",
-                originalFilename: uniqueName,
-                thumbnailSourceImage: nil
-            )
+            let textoExtraido = PDFTextExtractor.extraerTexto(from: destinoURL)
+
+            if textoExtraido.trimmingCharacters(in: .whitespacesAndNewlines)
+                .isEmpty
+            {
+                if let image = PDFImageExtractor.firstPageAsImage(
+                    from: destinoURL
+                ) {
+                    OCRService.recognizeText(from: image) { lines in
+                        let extracted = OCRPostProcessor.extractFields(
+                            from: lines
+                        )
+
+                        DispatchQueue.main.async {
+                            self.pedirTituloYCrearDoc(
+                                path: destinoURL.path,
+                                mimeType: "application/pdf",
+                                originalFilename: uniqueName,
+                                thumbnailSourceImage: image,
+                                extractedFields: extracted
+                            )
+                        }
+                    }
+                }
+
+            } else {
+                let lines =
+                    textoExtraido
+                    .components(separatedBy: .newlines)
+                    .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+
+                let extracted = OCRPostProcessor.extractFields(from: lines)
+
+                self.pedirTituloYCrearDoc(
+                    path: destinoURL.path,
+                    mimeType: "application/pdf",
+                    originalFilename: uniqueName,
+                    thumbnailSourceImage: nil,
+                    extractedFields: extracted
+                )
+            }
 
         } catch {
             print("Error al copiar PDF: \(error)")
@@ -116,7 +153,8 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         path: String,
         mimeType: String,
         originalFilename: String,
-        thumbnailSourceImage: UIImage?
+        thumbnailSourceImage: UIImage?,
+        extractedFields: [String: String]?
     ) {
 
         let alerta = UIAlertController(
@@ -146,9 +184,10 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
 
                 if let image = thumbnailSourceImage {
                     OCRService.recognizeText(from: image) { lines in
+                        let extracted = OCRPostProcessor.extractFields(
+                            from: lines
+                        )
 
-                        let extracted = OCRPostProcessor.extractFields(from: lines)
-                        
                         DispatchQueue.main.async {
                             self.createDocument(
                                 title: finalTitle,
@@ -167,7 +206,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                         mimeType: mimeType,
                         originalFilename: originalFilename,
                         thumbnail: thumbData,
-                        extractedFields: nil
+                        extractedFields: extractedFields
                     )
                 }
             }
@@ -202,7 +241,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                 options: []
             )
         }
-        
+
         do {
             try context.save()
             NotificationCenter.default.post(name: .documentoCreado, object: nil)
