@@ -13,10 +13,27 @@ class MainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        showLoginIfFirstTime()
         setupFAB()
     }
     
+    func showLoginIfFirstTime() {
+
+        let alreadyShown = UserDefaults.standard.bool(forKey: "loginModalShown")
+        if alreadyShown { return }
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(
+            withIdentifier: "LoginVC"
+        )
+
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true)
+
+        UserDefaults.standard.set(true, forKey: "loginModalShown")
+    }
+
+
     private func setupFAB() {
         fabButton.setImage(UIImage(systemName: "plus"), for: .normal)
         fabButton.backgroundColor = .accent
