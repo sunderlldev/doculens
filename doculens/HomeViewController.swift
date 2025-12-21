@@ -20,6 +20,12 @@ class HomeViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var searchBar: UISearchBar!
 
     @IBOutlet weak var soporteButton: UIButton!
+    
+    @IBOutlet weak var emptyView: UIView!
+    
+    @IBOutlet weak var lblMensajeEmpty: UILabel!
+    
+    @IBOutlet weak var ivIconoEmpty: UIImageView!
 
     var documentosRecientes: [Document] = []
 
@@ -60,6 +66,23 @@ class HomeViewController: UIViewController, UITableViewDelegate,
     @objc private func recargarDocumentos() {
         fetchDocumentosRecientes()
     }
+    
+    // MARK: - Empty State Busqueda
+    func actualizarEstadoBusqueda() {
+        let totalItems = isSearching ? documentosFiltrados.count : documentosRecientes.count
+        
+        emptyView.isHidden = totalItems > 0
+        
+        if totalItems == 0 {
+            if isSearching {
+                lblMensajeEmpty.text = "No hay coincidencias"
+                ivIconoEmpty.image = UIImage(systemName: "document.on.clipboard.fill")
+            } else {
+                lblMensajeEmpty.text = "No tienes ningún escaneo"
+                ivIconoEmpty.image = UIImage(systemName: "document.viewfinder")
+            }
+        }
+    }
 
     // MARK: - Documentos Recientes Fetch
     func fetchDocumentosRecientes() {
@@ -75,6 +98,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
             documentosRecientes = resultados
 
             tablaRecientes.reloadData()
+            actualizarEstadoBusqueda()
         } catch {
             print("Error al cargar documentos recientes: \(error)")
         }
@@ -185,6 +209,8 @@ class HomeViewController: UIViewController, UITableViewDelegate,
             // Actualizar la interfaz
             documentosRecientes.remove(at: indexPath.row)
             tablaRecientes.deleteRows(at: [indexPath], with: .automatic)
+            
+            actualizarEstadoBusqueda()
         } catch {
             print("Error al guardar en Core Data: \(error)")
         }
@@ -195,6 +221,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         guard !searchText.isEmpty else {
             isSearching = false
             tablaRecientes.reloadData()
+            actualizarEstadoBusqueda()
             return
         }
 
@@ -204,6 +231,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         }
 
         tablaRecientes.reloadData()
+        actualizarEstadoBusqueda()
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -212,6 +240,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
 
         isSearching = false
         tablaRecientes.reloadData()
+        actualizarEstadoBusqueda()
     }
 
     // MARK: - TableView DataSource
