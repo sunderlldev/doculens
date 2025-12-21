@@ -14,6 +14,12 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var emptyView: UIView!
+    
+    @IBOutlet weak var lblMensajeEmpty: UILabel!
+    
+    @IBOutlet weak var ivIconoEmpty: UIImageView!
+    
     var documentos: [Document] = []
     
     var documentosFiltrados: [Document] = []
@@ -54,6 +60,19 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
         fetchDocumentos()
     }
     
+    
+    // MARK: - Empty State Busqueda
+    func actualizarEstadoBusqueda() {
+        let totalItems = isSearching ? documentosFiltrados.count : documentos.count
+        
+        emptyView.isHidden = totalItems > 0
+        
+        if isSearching && totalItems == 0 {
+            lblMensajeEmpty.text = isSearching ? "No hay coincidencias" : "No tienes ningún escaneo"
+            ivIconoEmpty.image = isSearching ? UIImage(systemName: "document.on.clipboard.fill") : UIImage(systemName: "document.viewfinder")
+        }
+    }
+    
     // MARK: - Todos los Documentos Fetch
     func fetchDocumentos() {
         let request: NSFetchRequest<Document> = Document.fetchRequest()
@@ -65,6 +84,7 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
         do {
             documentos = try context.fetch(request)
             cvDocumentos.reloadData()
+            actualizarEstadoBusqueda()
         } catch {
             print("Error al cargar los documentos: \(error)")
         }
@@ -75,6 +95,7 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
         guard !searchText.isEmpty else {
             isSearching = false
             cvDocumentos.reloadData()
+            actualizarEstadoBusqueda()
             return
         }
         
@@ -84,6 +105,7 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
         
         cvDocumentos.reloadData()
+        actualizarEstadoBusqueda()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -91,6 +113,7 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
         searchBar.resignFirstResponder()
         isSearching = false
         cvDocumentos.reloadData()
+        actualizarEstadoBusqueda()
     }
     
     // MARK: - CollectionView DataSource
