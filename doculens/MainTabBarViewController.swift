@@ -65,7 +65,6 @@ class MainTabBarViewController: UITabBarController {
             style: .default
         ) { _ in
             self.abrirCamara()
-            print("Tomar foto")
         })
         
         menu.addAction(UIAlertAction(
@@ -73,7 +72,6 @@ class MainTabBarViewController: UITabBarController {
             style: .default
         ) { _ in
             self.abrirFiles()
-            print("Importar PDF")
         })
         
         menu.addAction(UIAlertAction(
@@ -81,7 +79,6 @@ class MainTabBarViewController: UITabBarController {
             style: .default
         ) { _ in
             self.abrirGaleria()
-            print("Importar Imagen")
         })
         
         menu.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
