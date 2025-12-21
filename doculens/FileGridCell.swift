@@ -7,6 +7,11 @@
 
 import UIKit
 
-class FileGridCell: NSObject {
-
+class FileGridCell: UICollectionViewCell {
+    
+    @IBOutlet weak var thumbnail: UIImageView!
+    
+    @IBOutlet weak var lblTitulo: UILabel!
+    
+    @IBOutlet weak var lblFechaPeso: UILabel!
 }
