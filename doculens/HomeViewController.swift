@@ -134,7 +134,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         alert.addTextField { textField in
             textField.text = document.title
         }
-
+            
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
 
         alert.addAction(
@@ -218,8 +218,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
     {
-
-        return isSearching
+        isSearching
             ? documentosFiltrados.count : documentosRecientes.count
     }
 
