@@ -88,6 +88,9 @@
                                                                     <color key="baseForegroundColor" systemColor="systemGray5Color"/>
                                                                     <color key="baseBackgroundColor" name="AccentColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="soporteButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xch-cO-hkM"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soporte Tecnico" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xda-Ug-E3k">
                                                                 <rect key="frame" x="0.0" y="42" width="50" height="30"/>
@@ -193,6 +196,7 @@
                     <navigationItem key="navigationItem" title="Inicio" id="cKB-1h-nzi"/>
                     <connections>
                         <outlet property="searchBar" destination="dsV-qv-BkD" id="OyV-wi-bCw"/>
+                        <outlet property="soporteButton" destination="rWF-33-2zU" id="M2t-dz-Rbb"/>
                         <outlet property="tablaRecientes" destination="BqC-by-hDl" id="uX2-qt-2ue"/>
                     </connections>
                 </viewController>
