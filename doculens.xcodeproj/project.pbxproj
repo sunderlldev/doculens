@@ -19,7 +19,7 @@
 		D4FC30E52EDF7B7700F0921A /* Exceptions for "doculens" folder in "doculens" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				App/Info.plist,
 			);
 			target = D4FC30CE2EDF7B7500F0921A /* doculens */;
 		};
@@ -155,12 +155,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = doculens/doculens.entitlements;
+				CODE_SIGN_ENTITLEMENTS = doculens/App/doculens.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79HCBJLBXW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = doculens/Info.plist;
+				INFOPLIST_FILE = doculens/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -184,12 +184,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = doculens/doculens.entitlements;
+				CODE_SIGN_ENTITLEMENTS = doculens/App/doculens.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79HCBJLBXW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = doculens/Info.plist;
+				INFOPLIST_FILE = doculens/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
