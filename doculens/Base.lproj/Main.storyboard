@@ -23,90 +23,94 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0yg-zD-7nn">
                                         <rect key="frame" x="20" y="25" width="353" height="100"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="psd-Ul-hQp">
-                                                <rect key="frame" x="26" y="20.000000000000004" width="70" height="34.333333333333343"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="VpR-Ik-zv4"/>
-                                                </constraints>
-                                                <color key="tintColor" name="AccentColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" image="folder.fill.badge.plus" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
-                                                    <color key="baseBackgroundColor" name="AccentColor"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar Archivos" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zd-mk-52W">
-                                                <rect key="frame" x="25" y="64.333333333333314" width="70" height="28.666666666666671"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="fF8-zl-QGi"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APl-Gu-GOH">
-                                                <rect key="frame" x="141" y="20.000000000000004" width="70" height="34.333333333333343"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="CR1-Rq-B1j"/>
-                                                </constraints>
-                                                <color key="tintColor" name="AccentColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" image="photo.artframe" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
-                                                    <color key="baseBackgroundColor" name="AccentColor"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar Imagen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iY1-Kg-WtH">
-                                                <rect key="frame" x="140" y="64.333333333333314" width="70" height="28.666666666666671"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="He8-Sp-gnn"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWF-33-2zU">
-                                                <rect key="frame" x="256" y="20.000000000000004" width="70" height="34.333333333333343"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="ev5-fG-dE8"/>
-                                                </constraints>
-                                                <color key="tintColor" name="AccentColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" image="airpods.max" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
-                                                    <color key="baseBackgroundColor" name="AccentColor"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soporte" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xda-Ug-E3k">
-                                                <rect key="frame" x="255" y="64.333333333333314" width="70" height="14.333333333333329"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="iVJ-5e-TR0"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="equalSpacing" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="hAi-VV-13W">
+                                                <rect key="frame" x="30" y="18" width="293" height="72"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tIT-4v-RNX">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="72"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="psd-Ul-hQp">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="38"/>
+                                                                <color key="tintColor" name="AccentColor"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="filled" image="folder.fill.badge.plus" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
+                                                                    <color key="baseBackgroundColor" name="AccentColor"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar Archivos" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zd-mk-52W">
+                                                                <rect key="frame" x="0.0" y="42" width="50" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="50" id="2KS-nO-2KO"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="LyS-2r-EPg"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="QmP-kH-xW2">
+                                                        <rect key="frame" x="121.66666666666666" y="0.0" width="50" height="72"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="APl-Gu-GOH">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="38"/>
+                                                                <color key="tintColor" name="AccentColor"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="filled" image="photo.artframe" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
+                                                                    <color key="baseBackgroundColor" name="AccentColor"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar Imagen" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iY1-Kg-WtH">
+                                                                <rect key="frame" x="0.0" y="42" width="50" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="50" id="9IJ-mv-Y7Z"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="Rkd-Kf-XFN"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="RX3-18-b5p">
+                                                        <rect key="frame" x="243" y="0.0" width="50" height="72"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="rWF-33-2zU">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="38"/>
+                                                                <color key="tintColor" name="AccentColor"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="filled" image="airpods.max" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
+                                                                    <color key="baseBackgroundColor" name="AccentColor"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soporte Tecnico" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xda-Ug-E3k">
+                                                                <rect key="frame" x="0.0" y="42" width="50" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="572-EQ-MSg"/>
+                                                                    <constraint firstAttribute="width" constant="50" id="KRk-x8-Dhk"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
-                                            <constraint firstItem="6Zd-mk-52W" firstAttribute="top" secondItem="psd-Ul-hQp" secondAttribute="bottom" constant="10" id="1r8-gx-Uyi"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xda-Ug-E3k" secondAttribute="trailing" constant="27" id="8Zs-5W-kwb"/>
-                                            <constraint firstItem="rWF-33-2zU" firstAttribute="top" secondItem="0yg-zD-7nn" secondAttribute="top" constant="20" id="JRc-hW-p8c"/>
+                                            <constraint firstAttribute="bottom" secondItem="hAi-VV-13W" secondAttribute="bottom" constant="10" id="Fxd-uD-W9n"/>
+                                            <constraint firstAttribute="trailing" secondItem="hAi-VV-13W" secondAttribute="trailing" constant="30" id="LFT-65-hf3"/>
                                             <constraint firstAttribute="height" constant="100" id="N8s-T8-2V5"/>
-                                            <constraint firstItem="rWF-33-2zU" firstAttribute="leading" secondItem="APl-Gu-GOH" secondAttribute="trailing" constant="45" id="Ove-hO-69K"/>
-                                            <constraint firstItem="xda-Ug-E3k" firstAttribute="top" secondItem="rWF-33-2zU" secondAttribute="bottom" constant="10" id="Oyx-Wa-Jci"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rWF-33-2zU" secondAttribute="trailing" constant="27" id="UMw-Er-A0z"/>
-                                            <constraint firstItem="psd-Ul-hQp" firstAttribute="top" secondItem="0yg-zD-7nn" secondAttribute="top" constant="20" id="Uom-H9-9Qb"/>
-                                            <constraint firstItem="xda-Ug-E3k" firstAttribute="leading" secondItem="iY1-Kg-WtH" secondAttribute="trailing" constant="45" id="kHe-Lw-9dt"/>
-                                            <constraint firstItem="6Zd-mk-52W" firstAttribute="leading" secondItem="0yg-zD-7nn" secondAttribute="leading" constant="25" id="m4W-GS-gsO"/>
-                                            <constraint firstItem="iY1-Kg-WtH" firstAttribute="top" secondItem="APl-Gu-GOH" secondAttribute="bottom" constant="10" id="nuT-Y4-scd"/>
-                                            <constraint firstItem="APl-Gu-GOH" firstAttribute="leading" secondItem="psd-Ul-hQp" secondAttribute="trailing" constant="45" id="qVZ-a8-j4a"/>
-                                            <constraint firstItem="psd-Ul-hQp" firstAttribute="leading" secondItem="0yg-zD-7nn" secondAttribute="leading" constant="26" id="r1D-o9-htZ"/>
-                                            <constraint firstItem="APl-Gu-GOH" firstAttribute="top" secondItem="0yg-zD-7nn" secondAttribute="top" constant="20" id="uAO-Ur-530"/>
-                                            <constraint firstItem="iY1-Kg-WtH" firstAttribute="leading" secondItem="6Zd-mk-52W" secondAttribute="trailing" constant="45" id="zux-Ph-5e7"/>
+                                            <constraint firstItem="hAi-VV-13W" firstAttribute="top" secondItem="0yg-zD-7nn" secondAttribute="top" constant="18" id="YEw-ou-3RN"/>
+                                            <constraint firstItem="hAi-VV-13W" firstAttribute="leading" secondItem="0yg-zD-7nn" secondAttribute="leading" constant="30" id="tRR-lf-e82"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -241,26 +245,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oNj-dr-TIt">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="- Datos extraidos del documento" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oNj-dr-TIt">
                                 <rect key="frame" x="20" y="576" width="353" height="75"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="V3p-2a-GCC"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OiR-QM-qaT">
-                                <rect key="frame" x="159" y="696" width="75" height="35"/>
+                                <rect key="frame" x="50" y="696" width="293" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Ver documento"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="G4r-4M-cXl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="OiR-QM-qaT" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="50" id="0Sz-M4-hO8"/>
                             <constraint firstItem="5Oi-YU-n90" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="0YN-7G-JqY"/>
                             <constraint firstItem="IPw-x8-QuQ" firstAttribute="top" secondItem="j3O-Wq-WAj" secondAttribute="bottom" constant="30" id="0hc-hg-Qrp"/>
                             <constraint firstItem="Ben-6Y-oNL" firstAttribute="top" secondItem="cYj-E7-M2q" secondAttribute="bottom" constant="25" id="1Bv-PW-LZ5"/>
@@ -270,15 +274,15 @@
                             <constraint firstItem="oNj-dr-TIt" firstAttribute="top" secondItem="Ben-6Y-oNL" secondAttribute="bottom" constant="10" id="9MP-lo-SZ3"/>
                             <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="IPw-x8-QuQ" secondAttribute="trailing" constant="20" id="ARU-0D-T1T"/>
                             <constraint firstItem="Ben-6Y-oNL" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="BNQ-jM-wAN"/>
+                            <constraint firstItem="OiR-QM-qaT" firstAttribute="top" secondItem="oNj-dr-TIt" secondAttribute="bottom" constant="45" id="DcW-Cp-RVw"/>
                             <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="cYj-E7-M2q" secondAttribute="trailing" constant="20" id="EYS-NT-Yqp"/>
                             <constraint firstItem="IPw-x8-QuQ" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="HAL-XM-KGH"/>
                             <constraint firstItem="j3O-Wq-WAj" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="HMG-uf-dpe"/>
-                            <constraint firstItem="OiR-QM-qaT" firstAttribute="centerX" secondItem="vl5-u4-k0I" secondAttribute="centerX" id="ORm-oc-I35"/>
+                            <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="OiR-QM-qaT" secondAttribute="trailing" constant="50" id="QTp-xi-6Uy"/>
                             <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="j3O-Wq-WAj" secondAttribute="trailing" constant="20" id="Sul-5z-cUW"/>
                             <constraint firstItem="j3O-Wq-WAj" firstAttribute="top" secondItem="Vnb-fn-xBE" secondAttribute="bottom" constant="25" id="Uno-7C-OqL"/>
                             <constraint firstItem="cYj-E7-M2q" firstAttribute="top" secondItem="5Oi-YU-n90" secondAttribute="bottom" constant="15" id="YPa-gx-PtS"/>
                             <constraint firstItem="Vnb-fn-xBE" firstAttribute="top" secondItem="G4r-4M-cXl" secondAttribute="top" constant="30" id="a0L-ek-OHv"/>
-                            <constraint firstItem="OiR-QM-qaT" firstAttribute="top" secondItem="oNj-dr-TIt" secondAttribute="bottom" constant="45" id="cmi-ec-nB0"/>
                             <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="5Oi-YU-n90" secondAttribute="trailing" constant="20" id="dmm-Oq-bmh"/>
                             <constraint firstItem="G4r-4M-cXl" firstAttribute="trailing" secondItem="oNj-dr-TIt" secondAttribute="trailing" constant="20" id="lLM-Ki-Znp"/>
                             <constraint firstItem="cYj-E7-M2q" firstAttribute="leading" secondItem="G4r-4M-cXl" secondAttribute="leading" constant="20" id="t2a-oG-Z7f"/>
