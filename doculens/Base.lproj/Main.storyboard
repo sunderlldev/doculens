@@ -159,6 +159,42 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
+                                    <view contentMode="scaleToFill" id="JW6-cY-S88" userLabel="emptyView">
+                                        <rect key="frame" x="20" y="184" width="353" height="432"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="CtC-6Y-QPh">
+                                                <rect key="frame" x="48" y="50.000000000000014" width="257" height="191.33333333333337"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.viewfinder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hYQ-LN-tsS">
+                                                        <rect key="frame" x="63.666666666666657" y="1" width="130" height="128"/>
+                                                        <color key="tintColor" name="AccentColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="130" id="GFJ-je-hfg"/>
+                                                            <constraint firstAttribute="width" constant="130" id="JOH-0R-70E"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tienes ningun escaneo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHq-JM-ll6">
+                                                        <rect key="frame" x="0.0" y="136" width="257" height="26.333333333333343"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toca + para escanear" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8J-IO-nRh">
+                                                        <rect key="frame" x="39" y="168.33333333333337" width="179" height="23"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <constraints>
+                                            <constraint firstItem="CtC-6Y-QPh" firstAttribute="centerX" secondItem="JW6-cY-S88" secondAttribute="centerX" id="106-4F-tvw"/>
+                                            <constraint firstItem="CtC-6Y-QPh" firstAttribute="top" secondItem="JW6-cY-S88" secondAttribute="top" constant="50" id="UFl-2R-dw2"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recientes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MXb-Ne-OYX">
                                         <rect key="frame" x="20" y="150" width="353" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -196,6 +232,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Inicio" id="cKB-1h-nzi"/>
                     <connections>
+                        <outlet property="emptyView" destination="JW6-cY-S88" id="0TB-bh-5tn"/>
+                        <outlet property="ivIconoEmpty" destination="hYQ-LN-tsS" id="BZQ-bF-ohk"/>
+                        <outlet property="lblMensajeEmpty" destination="vHq-JM-ll6" id="TG9-m7-2Lk"/>
                         <outlet property="searchBar" destination="dsV-qv-BkD" id="OyV-wi-bCw"/>
                         <outlet property="soporteButton" destination="rWF-33-2zU" id="M2t-dz-Rbb"/>
                         <outlet property="tablaRecientes" destination="BqC-by-hDl" id="uX2-qt-2ue"/>
@@ -405,6 +444,42 @@
                                     <constraint firstItem="eex-V2-zYm" firstAttribute="top" secondItem="3Ig-By-bNB" secondAttribute="top" id="rys-9r-kT1"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" id="8bo-jI-r2Y" userLabel="emptyView">
+                                <rect key="frame" x="0.0" y="218" width="393" height="517"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="VKL-1n-cqJ">
+                                        <rect key="frame" x="68" y="163" width="257" height="191.33333333333337"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.viewfinder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8Pr-j8-6En">
+                                                <rect key="frame" x="63.666666666666657" y="1" width="130" height="128"/>
+                                                <color key="tintColor" name="AccentColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="130" id="tzm-1j-jby"/>
+                                                    <constraint firstAttribute="height" constant="130" id="zKa-na-dAu"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tienes ningun escaneo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1B-bT-dNa">
+                                                <rect key="frame" x="0.0" y="136" width="257" height="26.333333333333343"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toca + para escanear" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7V-fW-g0e">
+                                                <rect key="frame" x="39" y="168.33333333333337" width="179" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="VKL-1n-cqJ" firstAttribute="centerY" secondItem="8bo-jI-r2Y" secondAttribute="centerY" id="fe0-hK-SFz"/>
+                                    <constraint firstItem="VKL-1n-cqJ" firstAttribute="centerX" secondItem="8bo-jI-r2Y" secondAttribute="centerX" id="wi8-oD-YnH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Lpw-aN-F9j"/>
                         <constraints>
@@ -420,13 +495,16 @@
                     <navigationItem key="navigationItem" title="Archivos" id="18i-Ym-wJQ"/>
                     <connections>
                         <outlet property="cvDocumentos" destination="eex-V2-zYm" id="JSc-L1-8vM"/>
+                        <outlet property="emptyView" destination="8bo-jI-r2Y" id="gMq-4D-Vxd"/>
+                        <outlet property="ivIconoEmpty" destination="8Pr-j8-6En" id="Vge-vf-TZO"/>
+                        <outlet property="lblMensajeEmpty" destination="e1B-bT-dNa" id="LUd-up-gDM"/>
                         <outlet property="searchBar" destination="WIh-Wg-1v2" id="U8n-QT-42k"/>
                         <segue destination="gDL-re-kuI" kind="show" identifier="segueDocDetalleDesdeFiles" id="WZm-f7-367"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OfB-cK-RKK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="825" y="180"/>
+            <point key="canvasLocation" x="823.66412213740455" y="179.57746478873241"/>
         </scene>
         <!--Herramientas-->
         <scene sceneID="Q1C-U8-JyZ">
@@ -710,6 +788,7 @@
     <resources>
         <image name="airpods.max" catalog="system" width="128" height="122"/>
         <image name="cloud" catalog="system" width="128" height="87"/>
+        <image name="document.viewfinder" catalog="system" width="128" height="115"/>
         <image name="folder.fill" catalog="system" width="128" height="96"/>
         <image name="folder.fill.badge.plus" catalog="system" width="128" height="93"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
