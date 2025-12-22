@@ -156,7 +156,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         }
     }
 
-    // MARK: - Title Prompt + Core Data
+    // MARK: - Core Data
     private func pedirTituloYCrearDoc(
         path: String,
         mimeType: String,

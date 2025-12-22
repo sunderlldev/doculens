@@ -219,9 +219,13 @@ class HomeViewController: UIViewController, UITableViewDelegate,
             try context.save()
 
             // Actualizar la interfaz
-            documentosRecientes.remove(at: indexPath.row)
+            if isSearching {
+                documentosFiltrados.remove(at: indexPath.row)
+            } else {
+                documentosRecientes.remove(at: indexPath.row)
+            }
+            
             tablaRecientes.deleteRows(at: [indexPath], with: .automatic)
-
             actualizarEstadoBusqueda()
         } catch {
             print("Error al guardar en Core Data: \(error)")
