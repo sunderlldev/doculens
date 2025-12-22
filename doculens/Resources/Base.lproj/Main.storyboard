@@ -39,8 +39,11 @@
                                                                     <color key="baseForegroundColor" systemColor="systemGray5Color"/>
                                                                     <color key="baseBackgroundColor" name="AccentColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="importarPDFButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IqH-Lt-h1p"/>
+                                                                </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar Archivos" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zd-mk-52W">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar PDF" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zd-mk-52W">
                                                                 <rect key="frame" x="0.0" y="42" width="50" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="2KS-nO-2KO"/>
@@ -64,6 +67,9 @@
                                                                     <color key="baseForegroundColor" systemColor="systemGray5Color"/>
                                                                     <color key="baseBackgroundColor" name="AccentColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="importarImagenButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hE4-EG-kO8"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importar Imagen" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iY1-Kg-WtH">
                                                                 <rect key="frame" x="0.0" y="42" width="50" height="30"/>
