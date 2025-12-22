@@ -9,7 +9,7 @@ import UIKit
 
 class DocumentoDetalleViewController: UIViewController {
 
-    var document: Document?
+    var document: Document!
 
     @IBOutlet weak var imageView: UIImageView!
 
@@ -29,7 +29,7 @@ class DocumentoDetalleViewController: UIViewController {
         UIConfig()
         cargarDatosExtraidos()
 
-        exportarComoPDFButton.isHidden = document?.mimeType == "application/pdf"
+        exportarComoPDFButton.isHidden = document.mimeType == "application/pdf"
     }
     
     private func UIConfig() {
@@ -56,7 +56,7 @@ class DocumentoDetalleViewController: UIViewController {
     // MARK: - Extraer Data
     private func cargarDatosExtraidos() {
         guard
-            let data = document?.extractedFields,
+            let data = document.extractedFields,
             let json = try? JSONSerialization.jsonObject(with: data)
                 as? [String: String], !json.isEmpty
         else {
@@ -156,15 +156,15 @@ class DocumentoDetalleViewController: UIViewController {
     @IBAction func verDocumentoButtonTapped(_ sender: UIButton) {
         let url = URL(fileURLWithPath: document?.filePath ?? "")
 
-        if document?.mimeType == "application/pdf" {
+        if document.mimeType == "application/pdf" {
             abrirPDF(url: url)
-        } else if (document?.mimeType?.starts(with: "image")) != nil {
+        } else if document.mimeType!.starts(with: "image") {
             abrirImagen(url: url)
         }
     }
 
     @IBAction func compartirDocumentoButtonTapped(_ sender: UIButton) {
-        guard let path = document?.filePath else { return }
+        guard let path = document.filePath else { return }
         let url = URL(fileURLWithPath: path)
 
         let activityVC = UIActivityViewController(
