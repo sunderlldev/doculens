@@ -91,6 +91,19 @@ class FolderListViewController: UIViewController, UITableViewDataSource,
         }
     }
 
+    // MARK: Evitar duplicados
+    func existeFolderConNombre(_ nombre: String) -> Bool {
+        let request: NSFetchRequest<Folder> = Folder.fetchRequest()
+        request.predicate = NSPredicate(
+            format: "name == [c] %@",
+            nombre
+        )
+        request.fetchLimit = 1
+
+        let count = try? context.count(for: request)
+        return (count ?? 0) > 0
+    }
+
     @objc func recargarFolders() {
         fetchFolders()
     }
@@ -109,7 +122,6 @@ class FolderListViewController: UIViewController, UITableViewDataSource,
         }
     }
 
-    // MARK: - Actions
     @objc func crearCarpeta() {
         let alert = UIAlertController(
             title: "Nueva carpeta",
@@ -128,6 +140,14 @@ class FolderListViewController: UIViewController, UITableViewDataSource,
                 guard let nombre = alert.textFields?.first?.text,
                     !nombre.trimmingCharacters(in: .whitespaces).isEmpty
                 else { return }
+
+                if self.existeFolderConNombre(nombre) {
+                    self.mostrarAlerta(
+                        titulo: "Nombre en uso",
+                        mensaje: "Ya existe una carpeta con ese nombre"
+                    )
+                    return
+                }
 
                 let folder = Folder(context: self.context)
                 folder.id = UUID()
@@ -204,6 +224,14 @@ class FolderListViewController: UIViewController, UITableViewDataSource,
         alert.addAction(
             UIAlertAction(title: "Guardar", style: .default) { _ in
                 guard let nuevoNombre = alert.textFields?.first?.text else {
+                    return
+                }
+
+                if self.existeFolderConNombre(nuevoNombre) {
+                    self.mostrarAlerta(
+                        titulo: "Nombre en uso",
+                        mensaje: "Ya existe una carpeta con ese Fnombre"
+                    )
                     return
                 }
 
@@ -301,17 +329,35 @@ class FolderListViewController: UIViewController, UITableViewDataSource,
         didSelectRowAt indexPath: IndexPath
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let folder = isSearching ? foldersFiltrados[indexPath.row] : folders[indexPath.row]
-        
+
+        let folder =
+            isSearching
+            ? foldersFiltrados[indexPath.row] : folders[indexPath.row]
+
         performSegue(withIdentifier: "segueFolderAFiles", sender: folder)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueFolderAFiles",
-           let destino = segue.destination as? FilesViewController,
-           let folder = sender as? Folder {
+            let destino = segue.destination as? FilesViewController,
+            let folder = sender as? Folder
+        {
             destino.folderSeleccionado = folder
         }
+    }
+    
+    // MARK: - Alerta
+    func mostrarAlerta(titulo: String, mensaje: String) {
+        let alerta = UIAlertController(
+            title: titulo,
+            message: mensaje,
+            preferredStyle: .alert
+        )
+
+        alerta.addAction(
+            UIAlertAction(title: "OK", style: .default)
+        )
+
+        present(alerta, animated: true)
     }
 }
