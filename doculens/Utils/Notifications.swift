@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let documentoCreado = Notification.Name("documentoCreado")
+    static let invitadoActualizado = Notification.Name("invitadoActualizado")
 }
