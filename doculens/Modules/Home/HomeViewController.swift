@@ -20,11 +20,11 @@ class HomeViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var searchBar: UISearchBar!
 
     @IBOutlet weak var soporteButton: UIButton!
-    
+
     @IBOutlet weak var emptyView: UIView!
-    
+
     @IBOutlet weak var lblMensajeEmpty: UILabel!
-    
+
     @IBOutlet weak var ivIconoEmpty: UIImageView!
 
     var documentosRecientes: [Document] = []
@@ -62,21 +62,33 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         super.viewWillAppear(animated)
         fetchDocumentosRecientes()
     }
+    
+    @IBAction func importarPDFButtonTapped(_ sender: UIButton) {
+        (tabBarController as? MainTabBarViewController)?.abrirFiles()
+    }
+    
+    @IBAction func importarImagenButtonTapped(_ sender: UIButton) {
+        (tabBarController as? MainTabBarViewController)?.abrirGaleria()
+    }
+    
 
     @objc private func recargarDocumentos() {
         fetchDocumentosRecientes()
     }
-    
+
     // MARK: - Empty State Busqueda
     func actualizarEstadoBusqueda() {
-        let totalItems = isSearching ? documentosFiltrados.count : documentosRecientes.count
-        
+        let totalItems =
+            isSearching ? documentosFiltrados.count : documentosRecientes.count
+
         emptyView.isHidden = totalItems > 0
-        
+
         if totalItems == 0 {
             if isSearching {
                 lblMensajeEmpty.text = "No hay coincidencias"
-                ivIconoEmpty.image = UIImage(systemName: "document.on.clipboard.fill")
+                ivIconoEmpty.image = UIImage(
+                    systemName: "document.on.clipboard.fill"
+                )
             } else {
                 lblMensajeEmpty.text = "No tienes ningún escaneo"
                 ivIconoEmpty.image = UIImage(systemName: "document.viewfinder")
@@ -158,7 +170,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         alert.addTextField { textField in
             textField.text = document.title
         }
-            
+
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
 
         alert.addAction(
@@ -209,7 +221,7 @@ class HomeViewController: UIViewController, UITableViewDelegate,
             // Actualizar la interfaz
             documentosRecientes.remove(at: indexPath.row)
             tablaRecientes.deleteRows(at: [indexPath], with: .automatic)
-            
+
             actualizarEstadoBusqueda()
         } catch {
             print("Error al guardar en Core Data: \(error)")
@@ -327,18 +339,22 @@ class HomeViewController: UIViewController, UITableViewDelegate,
             alertaError()
             return
         }
-        
+
         let correo = MFMailComposeViewController()
         correo.mailComposeDelegate = self
-        
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-        
+
+        let version =
+            Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            ?? "1.0"
+
         var userID = ""
-        
+
         if let firebaseUserID = Auth.auth().currentUser {
             userID = "FireBaseID: \(firebaseUserID.uid)"
         } else {
-            let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "Desconocido"
+            let deviceID =
+                UIDevice.current.identifierForVendor?.uuidString
+                ?? "Desconocido"
             userID = "GuestDeviceID: \(deviceID)"
         }
 
@@ -346,36 +362,41 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         correo.setSubject("Soporte Tecnico - DocuLens iOS (\(version))")
 
         let mensajeBody = """
-        Hola equipo de soporte de Doculens,
-        
-        [Escribe tu mensaje aqui]
-        
-        -----------------------------------
-        INFORMACION DEL USUARIO:
-        Usuario: \(userID)
-        Version: \(version)
-        Dispositivo: \(UIDevice.current.model) - iOS \(UIDevice.current.systemVersion)
-        -----------------------------------
-        """
-        
+            Hola equipo de soporte de Doculens,
+
+            [Escribe tu mensaje aqui]
+
+            -----------------------------------
+            INFORMACION DEL USUARIO:
+            Usuario: \(userID)
+            Version: \(version)
+            Dispositivo: \(UIDevice.current.model) - iOS \(UIDevice.current.systemVersion)
+            -----------------------------------
+            """
+
         correo.setMessageBody(mensajeBody, isHTML: false)
         present(correo, animated: true)
     }
-    
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?
+    ) {
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func alertaError() {
         let alerta = UIAlertController(
             title: "Correo no disponible",
-            message: "Por favor, configura tu correo para poder enviar un reporte de error",
+            message:
+                "Por favor, configura tu correo para poder enviar un reporte de error",
             preferredStyle: .alert
         )
         alerta.addAction(UIAlertAction(title: "Aceptar", style: .default))
         present(alerta, animated: true)
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
