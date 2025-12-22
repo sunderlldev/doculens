@@ -29,6 +29,8 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
 
     var folderSeleccionado: Folder?
 
+    var tagsSeleccionados: Set<Tag> = []
+
     var isSearching = false
 
     lazy var context: NSManagedObjectContext = {
@@ -46,8 +48,22 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
             object: nil
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(recargarDocumentos),
+            name: .documentoActualizado,
+            object: nil
+        )
+
         cvDocumentos.delegate = self
         cvDocumentos.dataSource = self
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "tag"),
+            style: .plain,
+            target: self,
+            action: #selector(mostrarFiltroTags)
+        )
 
         // Para evitar errores de autosizing
         if let layout = cvDocumentos.collectionViewLayout
@@ -65,6 +81,49 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
 
     @objc private func recargarDocumentos() {
         fetchDocumentos()
+    }
+
+    @objc func mostrarFiltroTags() {
+        let request: NSFetchRequest<Tag> = Tag.fetchRequest()
+        let tags = (try? context.fetch(request)) ?? []
+
+        let alert = UIAlertController(
+            title: "Filtrar por tags",
+            message: "Selecciona uno o mas",
+            preferredStyle: .actionSheet
+        )
+
+        for tag in tags {
+            let seleccionado = tagsSeleccionados.contains(tag)
+            let titulo = seleccionado ? "✓ \(tag.name ?? "")" : (tag.name ?? "")
+
+            alert.addAction(
+                UIAlertAction(title: titulo, style: .default) { _ in
+                    if self.tagsSeleccionados.contains(tag) {
+                        self.tagsSeleccionados.remove(tag)
+                    } else {
+                        self.tagsSeleccionados.insert(tag)
+                    }
+                    self.mostrarFiltroTags()
+                }
+            )
+        }
+
+        alert.addAction(
+            UIAlertAction(title: "Aplicar filtros", style: .default) { _ in
+                self.fetchDocumentos()
+            }
+        )
+
+        alert.addAction(
+            UIAlertAction(title: "Limpiar filtros", style: .destructive) { _ in
+                self.tagsSeleccionados.removeAll()
+                self.fetchDocumentos()
+            }
+        )
+
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+        present(alert, animated: true)
     }
 
     // MARK: - Empty State Busqueda
@@ -87,14 +146,38 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
 
     // MARK: - Todos los Documentos Fetch
     func fetchDocumentos() {
+        title = "Documentos"
+
         let request: NSFetchRequest<Document> = Document.fetchRequest()
+        var predicates: [NSPredicate] = []
 
         if let folderSeleccionado {
-            request.predicate = NSPredicate(
-                format: "folder == %@",
-                folderSeleccionado
+            predicates.append(
+                NSPredicate(
+                    format: "folder == %@",
+                    folderSeleccionado
+                )
             )
             title = folderSeleccionado.name
+        }
+
+        if !tagsSeleccionados.isEmpty {
+            predicates.append(
+                NSPredicate(
+                    format: "SUBQUERY(tags, $t, $t in %@).@count > 0",
+                    tagsSeleccionados
+                )
+            )
+            title =
+                tagsSeleccionados
+                .compactMap { $0.name }
+                .joined(separator: ", ")
+        }
+
+        if !predicates.isEmpty {
+            request.predicate = NSCompoundPredicate(
+                andPredicateWithSubpredicates: predicates
+            )
         }
 
         request.sortDescriptors = [
@@ -277,6 +360,13 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
     func menuParaDocumento(_ document: Document, indexPath: IndexPath) -> UIMenu
     {
 
+        let tags = UIAction(
+            title: "Asignar tags",
+            image: UIImage(systemName: "tag")
+        ) { _ in
+            self.asignarTagsADocumento(document)
+        }
+
         let renombrar = UIAction(
             title: "Renombrar",
             image: UIImage(systemName: "pencil")
@@ -291,6 +381,14 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
             self.shareDocument(document)
         }
 
+        let quitarTags = UIAction(
+            title: "Quitar todos los tags",
+            image: UIImage(systemName: "tag.slash"),
+            attributes: .destructive
+        ) { _ in
+            self.quitAllTags(document)
+        }
+
         let eliminar = UIAction(
             title: "Eliminar",
             image: UIImage(systemName: "trash"),
@@ -299,24 +397,77 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
             self.deleteDocumentFromFiles(document, indexPath: indexPath)
         }
 
-        return UIMenu(title: "", children: [renombrar, compartir, eliminar])
+        return UIMenu(
+            title: "",
+            children: [tags, renombrar, compartir, quitarTags, eliminar]
+        )
     }
 
     // MARK: - Acciones para el Modal Menu
-    func renameDocument(_ document: Document) {
+    func asignarTagsADocumento(_ document: Document) {
+        let request: NSFetchRequest<Tag> = Tag.fetchRequest()
+        let tags = (try? context.fetch(request)) ?? []
+
         let alert = UIAlertController(
+            title: "Asignar tags",
+            message: "Selecciona uno o mas",
+            preferredStyle: .actionSheet
+        )
+
+        let tagsActuales = document.tags as? Set<Tag> ?? []
+
+        for tag in tags {
+            let seleccionado = tagsActuales.contains(tag)
+            let titulo = seleccionado ? "✓ \(tag.name ?? "")" : (tag.name ?? "")
+
+            alert.addAction(
+                UIAlertAction(title: titulo, style: .default) { _ in
+                    var nuevos = tagsActuales
+                    if nuevos.contains(tag) {
+                        nuevos.remove(tag)
+                    } else {
+                        nuevos.insert(tag)
+                    }
+                    document.tags = nuevos as NSSet
+                    self.asignarTagsADocumento(document)
+                }
+            )
+        }
+
+        alert.addAction(
+            UIAlertAction(title: "Guardar", style: .default) { _ in
+                do {
+                    try self.context.save()
+                    NotificationCenter.default.post(
+                        name: .documentoActualizado,
+                        object: nil
+                    )
+
+                    self.alertaTags("Tags actualizados")
+                } catch {
+                    print("Error asignando tags: \(error)")
+                }
+            }
+        )
+
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+        present(alert, animated: true)
+    }
+
+    func renameDocument(_ document: Document) {
+        let alerta = UIAlertController(
             title: "Renombrar documento",
             message: nil,
             preferredStyle: .alert
         )
 
-        alert.addTextField { $0.text = document.title }
+        alerta.addTextField { $0.text = document.title }
 
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+        alerta.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
 
-        alert.addAction(
+        alerta.addAction(
             UIAlertAction(title: "Guardar", style: .default) { _ in
-                guard let nuevoTitulo = alert.textFields?.first?.text else {
+                guard let nuevoTitulo = alerta.textFields?.first?.text else {
                     return
                 }
 
@@ -331,7 +482,7 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
             }
         )
 
-        present(alert, animated: true)
+        present(alerta, animated: true)
     }
 
     func shareDocument(_ document: Document) {
@@ -343,6 +494,24 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
             applicationActivities: nil
         )
         present(activity, animated: true)
+    }
+
+    func quitAllTags(_ document: Document) {
+        document.tags = nil
+
+        do {
+            try context.save()
+            NotificationCenter.default.post(
+                name: .documentoActualizado,
+                object: nil
+            )
+            
+            alertaTags("Tags eliminados")
+        } catch {
+            print(
+                "Error al quitar tags: \(error)"
+            )
+        }
     }
 
     func deleteDocumentFromFiles(_ document: Document, indexPath: IndexPath) {
@@ -367,6 +536,19 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
 
         } catch {
             print("Error al eliminar documento: \(error)")
+        }
+    }
+
+    private func alertaTags(_ mensaje: String) {
+        let alerta = UIAlertController(
+            title: nil,
+            message: mensaje,
+            preferredStyle: .alert
+        )
+        present(alerta, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            alerta.dismiss(animated: true)
         }
     }
 }
