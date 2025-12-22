@@ -2,6 +2,10 @@
 
 ![image](assets/doculens-mobile.webp)
 
+DocuLens is an **offline-first iOS document management app** that allows users to scan, extract, organize and classify documents using **folders and tags**, with a clean and consistent user experience.
+
+The app is designed with a future cloud sync architecture in mind, but currently works **100% offline**, using Core Data and the iOS file system.
+
 ---
 
 ## Smart Document Scanning & Organization
@@ -50,15 +54,73 @@ cd doculens
 ```
 Open in Xcode 16.4, build, and run.
 
+---
+
+## Architecture Overview
+
+### Offline Mode (Current)
+
+- **Core Data** for persistence
+- **Local file system** for document storage
+- **Vision** for OCR
+- **PDFKit** for PDF rendering
+- **UIKit** + Storyboard
+- No login required
+
+The architecture is prepared for future cloud synchronization but does not depend on it.
+
+---
+
+## 🧬 Core Data Model
+
+### Entities
+
+**Document**
+- id (UUID)
+- title (String)
+- createdAt (Date)
+- filePath (String)
+- mimeType (String)
+- originalFilename (String?)
+- extractedFields (Binary?)
+- thumbnail (Binary?)
+- folder (Folder?)
+- tags (Set<Tag>)
+
+**Folder**
+- id (UUID)
+- name (String)
+- createdAt (Date)
+- documents (Set<Document>)
+- parent (Folder?)
+- children (Set<Folder>)
+
+**Tag**
+- id (UUID)
+- name (String)
+- documents (Set<Document>)
+
+---
+
 ## Project Structure
-```
+
+```text
 doculens/
- ├── Controllers/
- ├── Views/
- ├── Assets.xcassets/
- ├── Base.lproj/
- ├── doculens.xcdatamodeld/
- └── Info.plist
+ ├── Modules/
+ │   ├── Home/
+ │   ├── Files/
+ │   ├── Folder/
+ │   ├── Tags/
+ │   └── Details/
+ ├── Utils/
+ │   ├── Loader.swift
+ │   ├── Notifications.swift
+ ├── CoreData/
+ │   └── doculens.xcdatamodeld
+ ├── Resources/
+ │   └── Base.lproj
+ ├── Assets.xcassets
+ └── AppDelegate.swift
 ```
 
 ## Architecture Overview
