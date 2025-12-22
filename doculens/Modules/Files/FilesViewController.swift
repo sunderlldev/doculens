@@ -187,4 +187,8 @@ class FilesViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         return CGSize(width: anchoFinal, height: anchoFinal + 50)
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
