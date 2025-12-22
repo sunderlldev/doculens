@@ -14,7 +14,7 @@ class ImageViewerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .systemBackground
 
         configurarNav()
         verImagen()
@@ -23,6 +23,7 @@ class ImageViewerViewController: UIViewController {
     private func configurarNav() {
         title = "Imagen"
 
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,
             target: self,
