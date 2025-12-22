@@ -31,7 +31,7 @@ class DocumentoDetalleViewController: UIViewController {
 
         exportarComoPDFButton.isHidden = document?.mimeType == "application/pdf"
     }
-
+    
     private func UIConfig() {
         guard let document else { return }
 
@@ -53,6 +53,7 @@ class DocumentoDetalleViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
     }
 
+    // MARK: - Extraer Data
     private func cargarDatosExtraidos() {
         guard
             let data = document?.extractedFields,
@@ -68,21 +69,7 @@ class DocumentoDetalleViewController: UIViewController {
             .map { "- \($0.key): \($0.value)" }
             .joined(separator: "\n")
     }
-
-    @IBAction func exportarComoPDFButtonTapped(_ sender: UIButton) {
-        guard document?.mimeType == "image/jpeg" else { return }
-
-        let imagenURL = URL(fileURLWithPath: document?.filePath ?? "")
-        guard let imagen = UIImage(contentsOfFile: imagenURL.path) else {
-            alerta("No se pudo cargar la imagen")
-            return
-        }
-
-        if let pdfURL = generarPDFdeImagen(imagen) {
-            compartirArchivo(url: pdfURL)
-        }
-    }
-
+    
     func generarPDFdeImagen(_ imagen: UIImage) -> URL? {
         let pdfRenderer = UIGraphicsPDFRenderer(
             bounds: CGRect(
@@ -120,6 +107,51 @@ class DocumentoDetalleViewController: UIViewController {
 
         present(activityVC, animated: true)
     }
+    
+    // MARK: - Viewers
+    func abrirPDF(url: URL) {
+        let vc = PDFViewerViewController()
+        vc.pdfURL = url
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+
+    func abrirImagen(url: URL) {
+        let vc = ImageViewerViewController()
+        vc.imageURL = url
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        
+        present(nav, animated: true)
+    }
+    
+    // MARK: - Actions (Exportar PDF, Compartir, Visualizar)
+    @IBAction func exportarComoPDFButtonTapped(_ sender: UIButton) {
+        guard document?.mimeType == "image/jpeg" else { return }
+
+        Loader.show(in: self.view, message: "Generando PDF...")
+        
+        let imagenURL = URL(fileURLWithPath: document?.filePath ?? "")
+        guard let imagen = UIImage(contentsOfFile: imagenURL.path) else {
+            alerta("No se pudo cargar la imagen")
+            return
+        }
+
+        if let pdfURL = generarPDFdeImagen(imagen) {
+            DispatchQueue.main.async {
+                Loader.hide()
+                self.compartirArchivo(url: pdfURL)
+            }
+        } else {
+            DispatchQueue.main.async {
+                Loader.hide()
+                self.alerta("No se pudo generar el PDF")
+            }
+        }
+    }
 
     @IBAction func verDocumentoButtonTapped(_ sender: UIButton) {
         let url = URL(fileURLWithPath: document?.filePath ?? "")
@@ -129,20 +161,6 @@ class DocumentoDetalleViewController: UIViewController {
         } else if (document?.mimeType?.starts(with: "image")) != nil {
             abrirImagen(url: url)
         }
-    }
-
-    func abrirPDF(url: URL) {
-        let vc = PDFViewerViewController()
-        vc.pdfURL = url
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
-    }
-
-    func abrirImagen(url: URL) {
-        let vc = ImageViewerViewController()
-        vc.imageURL = url
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
     }
 
     @IBAction func compartirDocumentoButtonTapped(_ sender: UIButton) {
@@ -157,6 +175,7 @@ class DocumentoDetalleViewController: UIViewController {
         present(activityVC, animated: true)
     }
 
+    // MARK: - Alerta
     func alerta(_ mensaje: String) {
         let alerta = UIAlertController(
             title: "Error",
