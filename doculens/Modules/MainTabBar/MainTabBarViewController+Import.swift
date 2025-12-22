@@ -13,6 +13,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
     UINavigationControllerDelegate, UIDocumentPickerDelegate
 {
 
+    // MARK: - Camara / Galeria / Archivos
     func abrirCamara() {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             return
@@ -46,7 +47,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
             Any]
     ) {
         guard let image = info[.originalImage] as? UIImage else { return }
-
+        
         // Guardar archivo real
         let documentsURL = FileManager.default.urls(
             for: .documentDirectory,
@@ -73,6 +74,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                 )
             }
         } catch {
+            Loader.hide()
             picker.dismiss(animated: true)
             print("Error al guardar imagen: \(error)")
         }
@@ -101,6 +103,8 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
         do {
             try FileManager.default.copyItem(at: sourceURL, to: destinoURL)
 
+            Loader.show(in: self.view, message: "Procesando PDF...")
+            
             let textoExtraido = PDFTextExtractor.extraerTexto(from: destinoURL)
 
             if textoExtraido.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -115,6 +119,8 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                         )
 
                         DispatchQueue.main.async {
+                            Loader.hide()
+                            
                             self.pedirTituloYCrearDoc(
                                 path: destinoURL.path,
                                 mimeType: "application/pdf",
@@ -134,6 +140,8 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
 
                 let extracted = OCRPostProcessor.extractFields(from: lines)
 
+                Loader.hide()
+                
                 self.pedirTituloYCrearDoc(
                     path: destinoURL.path,
                     mimeType: "application/pdf",
@@ -183,12 +191,15 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                 )
 
                 if let image = thumbnailSourceImage {
+                    Loader.show(in: self.view, message: "Escaneando imagen...")
+                    
                     OCRService.recognizeText(from: image) { lines in
                         let extracted = OCRPostProcessor.extractFields(
                             from: lines
                         )
 
                         DispatchQueue.main.async {
+                            Loader.hide()
                             self.createDocument(
                                 title: finalTitle,
                                 filePath: path,
@@ -200,6 +211,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                         }
                     }
                 } else {
+                    Loader.hide()
                     self.createDocument(
                         title: finalTitle,
                         filePath: path,

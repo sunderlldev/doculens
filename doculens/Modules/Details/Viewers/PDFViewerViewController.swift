@@ -15,6 +15,8 @@ class PDFViewerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .systemBackground
+        
         configurarNav()
         cargarPDF()
     }
@@ -22,6 +24,7 @@ class PDFViewerViewController: UIViewController {
     private func configurarNav() {
         title = "Documento"
         
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(cerrarVisor)
         )
