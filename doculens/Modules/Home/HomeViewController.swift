@@ -375,4 +375,8 @@ class HomeViewController: UIViewController, UITableViewDelegate,
         alerta.addAction(UIAlertAction(title: "Aceptar", style: .default))
         present(alerta, animated: true)
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
