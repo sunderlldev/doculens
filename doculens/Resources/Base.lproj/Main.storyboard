@@ -390,7 +390,7 @@
         <scene sceneID="MnC-wH-Dq2">
             <objects>
                 <navigationController id="YNA-mE-0s8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Archivos" image="folder.fill" catalog="system" id="AwM-Hy-o9t"/>
+                    <tabBarItem key="tabBarItem" title="Archivos" image="document.fill" catalog="system" id="AwM-Hy-o9t"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="X7M-XN-J3k">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -402,6 +402,118 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uq3-xB-ibK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="13" y="180"/>
+        </scene>
+        <!--Folders-->
+        <scene sceneID="8es-bm-KRe">
+            <objects>
+                <viewController id="3bj-DK-3Dn" customClass="FolderListViewController" customModule="doculens" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IQm-Iq-i4l">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHB-0P-lab">
+                                <rect key="frame" x="0.0" y="218" width="393" height="517"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bze-q5-cg2">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="517"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FolderCell" textLabel="qTK-xf-sIa" style="IBUITableViewCellStyleDefault" id="OLt-9e-nCi">
+                                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OLt-9e-nCi" id="Juq-6W-ARn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qTK-xf-sIa">
+                                                            <rect key="frame" x="20" y="0.0" width="353" height="43.666667938232422"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="bze-q5-cg2" secondAttribute="bottom" id="PF4-PI-v6w"/>
+                                    <constraint firstAttribute="trailing" secondItem="bze-q5-cg2" secondAttribute="trailing" id="Rwb-L6-LEm"/>
+                                    <constraint firstItem="bze-q5-cg2" firstAttribute="leading" secondItem="EHB-0P-lab" secondAttribute="leading" id="ruz-j2-c0E"/>
+                                    <constraint firstItem="bze-q5-cg2" firstAttribute="top" secondItem="EHB-0P-lab" secondAttribute="top" id="yZP-go-IjH"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" id="dU2-eA-Hjd" userLabel="emptyView">
+                                <rect key="frame" x="0.0" y="228" width="393" height="517"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="sBn-FY-I4M">
+                                        <rect key="frame" x="44.333333333333343" y="163" width="304.66666666666663" height="191.33333333333337"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionmark.folder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UXz-i1-Yad">
+                                                <rect key="frame" x="87.333333333333314" y="1.6666666666666572" width="130" height="127"/>
+                                                <color key="tintColor" name="AccentColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="130" id="jDI-7U-YiF"/>
+                                                    <constraint firstAttribute="width" constant="130" id="pkj-Pw-sAe"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tienes ningun folder creado" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1e-lz-bbP">
+                                                <rect key="frame" x="0.0" y="136" width="304.66666666666669" height="26.333333333333343"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toca + para crear uno" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUV-Tv-bWI">
+                                                <rect key="frame" x="61.666666666666671" y="168.33333333333337" width="181.33333333333331" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="sBn-FY-I4M" firstAttribute="centerX" secondItem="dU2-eA-Hjd" secondAttribute="centerX" id="gT4-Ru-LgQ"/>
+                                    <constraint firstItem="sBn-FY-I4M" firstAttribute="centerY" secondItem="dU2-eA-Hjd" secondAttribute="centerY" id="rVd-DC-ueu"/>
+                                </constraints>
+                            </view>
+                            <searchBar contentMode="redraw" placeholder="Buscar folders..." translatesAutoresizingMaskIntoConstraints="NO" id="cTo-bJ-fC8">
+                                <rect key="frame" x="0.0" y="162" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="3bj-DK-3Dn" id="dHi-4r-9py"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="E0F-dV-Wc2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="E0F-dV-Wc2" firstAttribute="bottom" secondItem="EHB-0P-lab" secondAttribute="bottom" id="DaJ-xT-rMW"/>
+                            <constraint firstItem="EHB-0P-lab" firstAttribute="top" secondItem="cTo-bJ-fC8" secondAttribute="bottom" id="X5Z-qd-1Te"/>
+                            <constraint firstItem="cTo-bJ-fC8" firstAttribute="trailing" secondItem="E0F-dV-Wc2" secondAttribute="trailing" id="ayD-hN-dQT"/>
+                            <constraint firstItem="cTo-bJ-fC8" firstAttribute="leading" secondItem="E0F-dV-Wc2" secondAttribute="leading" id="n7x-ac-cAc"/>
+                            <constraint firstItem="EHB-0P-lab" firstAttribute="leading" secondItem="E0F-dV-Wc2" secondAttribute="leading" id="pky-dQ-7ZQ"/>
+                            <constraint firstItem="E0F-dV-Wc2" firstAttribute="trailing" secondItem="EHB-0P-lab" secondAttribute="trailing" id="tqz-Ks-EDO"/>
+                            <constraint firstItem="cTo-bJ-fC8" firstAttribute="top" secondItem="E0F-dV-Wc2" secondAttribute="top" id="xlk-3x-pU9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Folders" id="bhZ-RV-mMQ"/>
+                    <connections>
+                        <outlet property="emptyView" destination="dU2-eA-Hjd" id="g2d-6t-AyH"/>
+                        <outlet property="ivIconoEmpty" destination="UXz-i1-Yad" id="xvW-0C-LBM"/>
+                        <outlet property="lblMensajeEmpty" destination="T1e-lz-bbP" id="A9Z-SD-GPO"/>
+                        <outlet property="searchBar" destination="cTo-bJ-fC8" id="CJ2-F7-i6y"/>
+                        <outlet property="tvFolders" destination="bze-q5-cg2" id="iji-oj-sRa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qu9-Tf-jfw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="823.66412213740455" y="893.66197183098598"/>
         </scene>
         <!--Archivos-->
         <scene sceneID="kUT-rb-95S">
@@ -478,10 +590,10 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="eex-V2-zYm" secondAttribute="bottom" id="gWc-56-pka"/>
-                                    <constraint firstItem="eex-V2-zYm" firstAttribute="leading" secondItem="3Ig-By-bNB" secondAttribute="leading" id="m5f-p3-6n1"/>
-                                    <constraint firstAttribute="trailing" secondItem="eex-V2-zYm" secondAttribute="trailing" id="oGX-GW-1yw"/>
-                                    <constraint firstItem="eex-V2-zYm" firstAttribute="top" secondItem="3Ig-By-bNB" secondAttribute="top" id="rys-9r-kT1"/>
+                                    <constraint firstAttribute="bottom" secondItem="eex-V2-zYm" secondAttribute="bottom" id="Jkt-ax-v4F"/>
+                                    <constraint firstItem="eex-V2-zYm" firstAttribute="leading" secondItem="3Ig-By-bNB" secondAttribute="leading" id="R2p-qF-8KH"/>
+                                    <constraint firstItem="eex-V2-zYm" firstAttribute="top" secondItem="3Ig-By-bNB" secondAttribute="top" id="XQC-Ol-fux"/>
+                                    <constraint firstAttribute="trailing" secondItem="eex-V2-zYm" secondAttribute="trailing" id="jeJ-qx-MIF"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" id="8bo-jI-r2Y" userLabel="emptyView">
@@ -561,7 +673,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMz-aU-gmY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13" y="915"/>
+            <point key="canvasLocation" x="13" y="1637"/>
         </scene>
         <!--Mi Cuenta-->
         <scene sceneID="DI3-ab-VLh">
@@ -655,7 +767,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKC-Fo-PBD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="819" y="915"/>
+            <point key="canvasLocation" x="818" y="1637"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="2wH-gM-I2U">
@@ -763,7 +875,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2s9-Ih-9rp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1541" y="915"/>
+            <point key="canvasLocation" x="1540" y="1637"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="Bco-bs-KMH">
@@ -786,6 +898,7 @@
                         <segue destination="opd-32-ylj" kind="relationship" relationship="viewControllers" id="Uka-z9-NzW"/>
                         <segue destination="YNA-mE-0s8" kind="relationship" relationship="viewControllers" id="IUm-Gq-FYW"/>
                         <segue destination="pP6-9r-scg" kind="relationship" relationship="viewControllers" id="ncV-oD-8Mt"/>
+                        <segue destination="ooD-PU-BWf" kind="relationship" relationship="viewControllers" id="Is5-Qw-2hC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8TU-Gc-cbF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -811,12 +924,32 @@
             </objects>
             <point key="canvasLocation" x="13" y="-521"/>
         </scene>
+        <!--Folders-->
+        <scene sceneID="2Dj-WF-79Q">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ooD-PU-BWf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Folders" image="folder.fill" catalog="system" id="ipM-XY-qGQ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UYB-jl-tbv">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3bj-DK-3Dn" kind="relationship" relationship="rootViewController" id="C1p-N8-D2r"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GF0-qp-qSp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12.977099236641221" y="893.66197183098598"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fD7-wQ-out"/>
+        <segue reference="WZm-f7-367"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="airpods.max" catalog="system" width="128" height="122"/>
+        <image name="document.fill" catalog="system" width="115" height="128"/>
         <image name="document.viewfinder" catalog="system" width="128" height="115"/>
         <image name="folder.fill" catalog="system" width="128" height="96"/>
         <image name="folder.fill.badge.plus" catalog="system" width="128" height="93"/>
@@ -826,6 +959,7 @@
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
+        <image name="questionmark.folder" catalog="system" width="128" height="96"/>
         <namedColor name="AccentColor">
             <color red="0.2196078431372549" green="0.2196078431372549" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

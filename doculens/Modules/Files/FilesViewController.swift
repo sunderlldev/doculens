@@ -27,6 +27,8 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
 
     var documentosFiltrados: [Document] = []
 
+    var folderSeleccionado: Folder?
+
     var isSearching = false
 
     lazy var context: NSManagedObjectContext = {
@@ -86,6 +88,15 @@ class FilesViewController: UIViewController, UICollectionViewDelegate,
     // MARK: - Todos los Documentos Fetch
     func fetchDocumentos() {
         let request: NSFetchRequest<Document> = Document.fetchRequest()
+
+        if let folderSeleccionado {
+            request.predicate = NSPredicate(
+                format: "folder == %@",
+                folderSeleccionado
+            )
+            title = folderSeleccionado.name
+        }
+
         request.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: false)
         ]
