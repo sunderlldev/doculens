@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DocumentoDetalleViewController: UIViewController {
 
@@ -29,9 +30,16 @@ class DocumentoDetalleViewController: UIViewController {
         UIConfig()
         cargarDatosExtraidos()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Mover",
+            style: .plain,
+            target: self,
+            action: #selector(moverDocumento)
+        )
+
         exportarComoPDFButton.isHidden = document.mimeType == "application/pdf"
     }
-    
+
     private func UIConfig() {
         guard let document else { return }
 
@@ -52,7 +60,89 @@ class DocumentoDetalleViewController: UIViewController {
 
         imageView.contentMode = .scaleAspectFit
     }
+    
+    @objc func moverDocumento() {
+        guard let document else { return }
 
+        let folders = fetchFolders()
+
+        let alert = UIAlertController(
+            title: "Mover a carpeta",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let folderActual = document.folder
+        
+        let otrosFolders = folders.filter { folder in
+            folder != folderActual
+        }
+        
+        // Solo mostrar en caso existan carpetas
+        if !folders.isEmpty {
+            for folder in otrosFolders {
+                alert.addAction(
+                    UIAlertAction(title: folder.name, style: .default) { _ in
+                        self.asignar(document: document, a: folder)
+                    }
+                )
+            }
+        }
+
+        if document.folder != nil {
+            alert.addAction(
+                UIAlertAction(title: "Quitar de carpeta", style: .destructive) { _ in
+                    self.asignar(document: document, a: nil)
+                }
+            )
+        }
+
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+
+        present(alert, animated: true)
+    }
+
+    func asignar(document: Document, a folder: Folder?) {
+        let context = (UIApplication.shared.delegate as! AppDelegate)
+            .persistentContainer.viewContext
+
+        document.folder = folder
+
+        do {
+            try context.save()
+            
+            NotificationCenter.default.post(
+                name: .documentoActualizado,
+                object: nil
+            )
+            
+            alertaCambioDeCarpeta(folder: folder)
+        } catch {
+            print("Error moviendo documento: \(error)")
+        }
+    }
+    
+    private func alertaCambioDeCarpeta(folder: Folder?) {
+        let mensaje = folder == nil
+            ? "Documento quitado de la carpeta"
+            : "Documento movido a \"\(folder?.name ?? "")\""
+
+        let alert = UIAlertController(
+            title: "Listo",
+            message: mensaje,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(
+            UIAlertAction(title: "OK", style: .default) { _ in
+                // Volver atras
+                self.navigationController?.popViewController(animated: true)
+            }
+        )
+
+        present(alert, animated: true)
+    }
+    
     // MARK: - Extraer Data
     private func cargarDatosExtraidos() {
         guard
@@ -69,7 +159,7 @@ class DocumentoDetalleViewController: UIViewController {
             .map { "- \($0.key): \($0.value)" }
             .joined(separator: "\n")
     }
-    
+
     func generarPDFdeImagen(_ imagen: UIImage) -> URL? {
         let pdfRenderer = UIGraphicsPDFRenderer(
             bounds: CGRect(
@@ -107,12 +197,12 @@ class DocumentoDetalleViewController: UIViewController {
 
         present(activityVC, animated: true)
     }
-    
+
     // MARK: - Viewers
     func abrirPDF(url: URL) {
         let vc = PDFViewerViewController()
         vc.pdfURL = url
-        
+
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
@@ -121,19 +211,19 @@ class DocumentoDetalleViewController: UIViewController {
     func abrirImagen(url: URL) {
         let vc = ImageViewerViewController()
         vc.imageURL = url
-        
+
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
-        
+
         present(nav, animated: true)
     }
-    
+
     // MARK: - Actions (Exportar PDF, Compartir, Visualizar)
     @IBAction func exportarComoPDFButtonTapped(_ sender: UIButton) {
         guard document?.mimeType == "image/jpeg" else { return }
 
         Loader.show(in: self.view, message: "Generando PDF...")
-        
+
         let imagenURL = URL(fileURLWithPath: document?.filePath ?? "")
         guard let imagen = UIImage(contentsOfFile: imagenURL.path) else {
             alerta("No se pudo cargar la imagen")
@@ -191,5 +281,17 @@ class DocumentoDetalleViewController: UIViewController {
         )
 
         present(alerta, animated: true)
+    }
+    
+    func fetchFolders() -> [Folder] {
+        let context = (UIApplication.shared.delegate as! AppDelegate)
+            .persistentContainer.viewContext
+
+        let request: NSFetchRequest<Folder> = Folder.fetchRequest()
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "createdAt", ascending: true)
+        ]
+
+        return (try? context.fetch(request)) ?? []
     }
 }
