@@ -139,7 +139,7 @@ extension MainTabBarViewController: UIImagePickerControllerDelegate,
                     .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
 
                 let extracted = OCRPostProcessor.extractFields(from: lines)
-
+ 
                 Loader.hide()
                 
                 self.pedirTituloYCrearDoc(

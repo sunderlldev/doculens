@@ -230,7 +230,7 @@ class FolderListViewController: UIViewController, UITableViewDataSource,
                 if self.existeFolderConNombre(nuevoNombre) {
                     self.mostrarAlerta(
                         titulo: "Nombre en uso",
-                        mensaje: "Ya existe una carpeta con ese Fnombre"
+                        mensaje: "Ya existe una carpeta con ese nombre"
                     )
                     return
                 }
