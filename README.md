@@ -2,82 +2,125 @@
 
 ![image](assets/doculens-mobile.webp)
 
+DocuLens is a professional document management solution for iOS, designed to scan, extract metadata, and categorize information using an offline-first approach. The application leverages UIKit and Core Data to provide a robust hierarchical organization system through folders and tags.
+
 ---
 
-## Smart Document Scanning & Organization
-DocuLens is an iOS application designed to scan, extract information, and organize documents efficiently.  
+## Technical Specifications
 
-## Project Overview
-DocuLens transforms your device into a powerful document management tool.  
-The app scans documents, extracts relevant metadata, organizes them into folders, and prepares information for future syncing with cloud storage and a PostgreSQL backend.
+The project is developed entirely in **Swift** for the iOS platform, using a modular architecture that separates UI, business logic, and persistence layers.
 
-This repository contains the **iOS client**, developed entirely with UIKit and Storyboards.
+### Core Technologies
 
-## Features (Current & Planned)
+- **UI Framework:** UIKit (Storyboards and Programmatic UI)
+- **Persistence:** Core Data with SQLite storage
+- **Authentication:** Firebase Auth (Native support for Apple Sign-In and Google Sign-In)
+- **Document Processing:** Vision and VisionKit for OCR and smart scanning
+- **Session Management:** SceneDelegate for dynamic routing based on authentication state
 
-### Implemented (Testing Phase)
-- Custom UI for home screen and tab bar
-- Recent documents list (UI prototype)
-- Launch screen and branded app icon
-- Base Core Data model (Folder, Document, Tag)
-- Local-only mode enabled for testing
+---
 
-### In Development
-- Document scanner using VisionKit & Vision OCR
-- Document metadata extraction
-- PDF and image export with metadata
-- Folder-based organization with subfolders
-- Thumbnail generation for scanned documents
+## Implemented Features
 
-### Planned Features (Online Mode)
-- User accounts (PostgreSQL + API)
-- Cloud synchronization
-- Search engine powered by OCR index
-- Tags and advanced filtering
-- Secure iCloud Backup
+### Document Management
 
-## Technologies Used
-- Swift 5
-- UIKit + Storyboards
-- Core Data
-- Vision & VisionKit (soon)
-- Xcode 16.4
+- **Smart Scanning:** VisionKit integration for edge detection and perspective correction.
+- **OCR Recognition:** Automatic text extraction for document indexing.
+- **Hierarchical Structure:** Folder system with subfolder support and many-to-many relationships with tags.
+- **Local Storage:** Documents are managed directly within the iOS file system, linked via unique identifiers in Core Data.
 
-## Installation
-```bash
-git clone https://github.com/jaycodev/doculens.git
-cd doculens
-```
-Open in Xcode 16.4, build, and run.
+### Authentication & Onboarding
+
+- **Identity Providers:** Full login flows with Apple (native style) and Google (official branding).
+- **Guest Mode:** Full app functionality without registration, storing user data locally via UserDefaults.
+- **Welcome Flow:** Interactive onboarding system based on UIPageViewController to guide users during their first access.
+
+---
 
 ## Project Structure
-```
+
+```text
 doculens/
- ├── Controllers/
- ├── Views/
- ├── Assets.xcassets/
- ├── Base.lproj/
- ├── doculens.xcdatamodeld/
- └── Info.plist
+├── App/
+│   ├── AppDelegate.swift       # Firebase and SDK initialization
+│   └── SceneDelegate.swift     # Window management and auth flow routing
+├── Modules/
+│   ├── Home/                   # Dashboard and recent activity
+│   ├── Files/                  # General document listing
+│   ├── Folder/                 # Directory logic and navigation
+│   ├── Tags/                   # Metadata classification
+│   └── Login/                  # Auth provider implementation
+├── CoreData/
+│   └── doculens.xcdatamodeld   # Entity definitions (Document, Folder, Tag)
+├── Utils/
+│   ├── Loader.swift            # UI loading indicators
+│   └── Notifications.swift     # Internal observer patterns
+└── Resources/                  # Assets, icons, and Storyboards
 ```
 
-## Architecture Overview
+---
 
-### Offline Mode (Current)
-- Core Data storage
-- Local filesystem
-- No login required
+## Technologies Used
 
-### Online Mode (Planned)
-- PostgreSQL backend
-- REST API 
-- Cloud file storage
-- User accounts
+- **Swift 5**
+- **UIKit + Storyboards**
+- **Core Data**
+- **Vision & VisionKit** (Coming soon)
+- **Xcode 16.4**
 
-## Security Notes
-- No API keys required in current phase.
-- Local secure storage.
-- Cloud credentials excluded in future.
+---
 
-## 🧪 Current Status
-Actively developing UI, Core Data tests, and OCR pipeline.
+## Data Model (Core Data)
+
+The model is optimized for data integrity, using **Non-Optional** constraints on critical fields to ensure Swift type safety and prevent runtime crashes.
+
+### Entities
+
+**Document**
+
+- `id`: UUID (Non-optional)
+- `title`: String (Non-optional)
+- `createdAt`: Date (Non-optional)
+- `filePath`: String (Non-optional)
+- `thumbnail`: Binary Data (Optional)
+
+**Folder**
+
+- `id`: UUID (Non-optional)
+- `name`: String (Non-optional)
+- _Relationships:_ Supports subfolders via self-referential parent/children links.
+
+**Tag**
+
+- `id`: UUID (Non-optional)
+- `name`: String (Non-optional)
+
+---
+
+## Installation & Setup
+
+### Prerequisites
+
+- **Xcode 16.4** or higher.
+- **iOS 17.0+** deployment target.
+
+### Steps
+
+1. **Clone the repository:**
+
+```bash
+git clone [https://github.com/jaycodev/doculens.git](https://github.com/jaycodev/doculens.git)
+cd doculens
+```
+
+2. **Configuration:**
+
+- **Firebase:** Add your `GoogleService-Info.plist` to the project root.
+- **URL Schemes:** Add the `REVERSED_CLIENT_ID` to the **URL Types** in the project's Info tab for Google Sign-In support.
+
+3. **Build:**
+
+- Open `doculens.xcodeproj` in **Xcode 16.4**.
+- Press `Cmd + R` to build and run on a simulator or physical device.
+
+---
