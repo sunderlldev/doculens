@@ -42,8 +42,8 @@ The project is developed entirely in **Swift** for the iOS platform, using a mod
 ```text
 doculens/
 ├── App/
-│   ├── AppDelegate.swift       # Firebase and SDK initialization
-│   └── SceneDelegate.swift     # Window management and auth flow routing
+│   ├── AppDelegate.swift       
+│   └── SceneDelegate.swift     
 ├── Modules/
 │   ├── Home/                   # Dashboard and recent activity
 │   ├── Files/                  # General document listing
